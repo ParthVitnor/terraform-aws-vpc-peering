@@ -1,5 +1,5 @@
 resource "aws_vpc" "public_vpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = var.vpc_cidr_block
 
   tags = {
     Name = "public-vpc"
@@ -8,10 +8,10 @@ resource "aws_vpc" "public_vpc" {
 
 resource "aws_subnet" "public_subnet" {
   vpc_id = aws_vpc.public_vpc.id
-  cidr_block = "10.0.1.0/24"
-  availability_zone = "ap-south-1a"
+  cidr_block = var.subnet_cidr_block
+  availability_zone = var.subnet_availability_zone
   map_public_ip_on_launch = true
-  
+
   tags = {
     Name ="public-subnet"
   }
