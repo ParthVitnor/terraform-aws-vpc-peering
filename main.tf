@@ -45,3 +45,10 @@ resource "aws_route_table_association" "igw_internet_assoc" {
   route_table_id = aws_route_table.public_vpc_rt.id
 }
 
+resource "aws_vpc" "private_vpc" {
+  cidr_block = "11.0.0.0/0"
+
+  tags = {
+    Name = "private-vpc"
+  }
+}
