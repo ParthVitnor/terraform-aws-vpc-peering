@@ -1,5 +1,5 @@
 resource "aws_vpc" "primary_vpc" {
-  cidr_block = var.vpc_cidr_block
+  cidr_block = var.primary_vpc_cidr_block
   enable_dns_hostnames = true
   enable_dns_support = true
 
@@ -10,7 +10,7 @@ resource "aws_vpc" "primary_vpc" {
 
 resource "aws_subnet" "primary_subnet" {
   vpc_id = aws_vpc.primary_vpc.id
-  cidr_block = var.subnet_cidr_block
+  cidr_block = var.primary_subnet_cidr_block
   availability_zone = var.subnet_availability_zone
   map_public_ip_on_launch = true
 
@@ -48,7 +48,7 @@ resource "aws_route_table_association" "primary_vpc_internet_assoc" {
 }
 
 resource "aws_vpc" "secondary_vpc" {
-  cidr_block = "11.0.0.0/16"
+  cidr_block = var.secondary_vpc_cidr_block
   enable_dns_hostnames = true
   enable_dns_support = true
 
@@ -59,7 +59,7 @@ resource "aws_vpc" "secondary_vpc" {
 
 resource "aws_subnet" "secondary_subnet" {
   vpc_id = aws_vpc.secondary_vpc.id
-  cidr_block = "11.0.1.0/24"
+  cidr_block = var.secondary_subnet_cidr_block
   availability_zone = var.subnet_availability_zone
 
   tags =  {
