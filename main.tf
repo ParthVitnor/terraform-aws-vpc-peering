@@ -94,3 +94,22 @@ resource "aws_route_table_association" "primary_vpc_internet_assoc" {
   subnet_id = aws_subnet.secondary_subnet.id
   route_table_id = aws_route_table.secondary_vpc_rt.id
 }
+
+
+
+resource "tls_private_key" "ssh_key" {
+  algorithm = var.ssh_key_algorithm
+  rsa_bits = var.ssh_key_bits
+}
+
+resource "local_file" "ec2_private_key" {
+  filename = "${path.module}/ec2-key.pem"
+  content = tls_private_key.ssh_key.private_key_pem
+
+}
+
+resource "aws_key_pair" "ec2_key_pair" {
+  key_name = var.key_pair_name
+  public_key = tls_private_key.ssh_key.public_key_openssh
+
+}
