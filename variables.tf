@@ -22,3 +22,15 @@ variable "secondary_vpc_cidr_block" {
 variable "secondary_subnet_cidr_block" {
   default = "11.0.1.0/24"
 }
+
+variable "ssh_key_algorithm" {
+  default = "RSA"
+}
+
+variable "ssh_key_bits" {
+  default = 4096
+}
+
+variable "key_pair_name" {
+  default = "instance-key-pair"
+}
