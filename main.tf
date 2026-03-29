@@ -105,6 +105,7 @@ resource "tls_private_key" "ssh_key" {
 resource "local_file" "ec2_private_key" {
   filename = "${path.module}/ec2-key.pem"
   content = tls_private_key.ssh_key.private_key_pem
+  file_permission = "0400"
 
 }
 
