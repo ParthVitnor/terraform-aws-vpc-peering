@@ -149,3 +149,22 @@ tags = {
   }
 }
 
+
+resource "aws_instance" "secondary_instance" {
+  ami = data.aws_ami.ubuntu.id
+  instance_type = var.instance_type
+  subnet_id = aws_subnet.secondary_subnet
+
+  key_name = aws_key_pair.ec2_key_pair.id
+  root_block_device {
+    volume_size = var.root_block_volume_size
+    volume_type = var.root_block_volume_type
+    delete_on_termination = var.root_dlt_on_termination
+    encrypted = true
+  }
+
+tags = {
+  Name = "secondary-instance"
+  }
+}
+
