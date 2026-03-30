@@ -130,3 +130,22 @@ data "aws_ami" "ubuntu" {
 
   owners = ["099720109477"] # Canonical
 }
+
+resource "aws_instance" "primary_instance" {
+  ami = data.aws_ami.ubuntu.id
+  instance_type = "t3.micro"
+   subnet_id = aws_subnet.primary_subnet
+   
+  key_name = aws_key_pair.ec2_key_pair.id
+  root_block_device {
+    volume_size = 5
+    volume_type = "gp3"
+    delete_on_termination = true
+    encrypted = true
+  }
+
+tags = {
+  Name = "primary-instance"
+  }
+}
+
