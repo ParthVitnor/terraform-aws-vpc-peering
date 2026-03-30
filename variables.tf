@@ -34,3 +34,19 @@ variable "ssh_key_bits" {
 variable "key_pair_name" {
   default = "instance-key-pair"
 }
+
+variable "instance_type" {
+  default = "t3.micro" #free tier 
+}
+
+variable "root_block_volume_size" {
+  default = 5
+}
+
+variable "root_block_volume_type" {
+  default = "gp3"
+}
+
+variable "root_dlt_on_termination" {
+  default = true
+}
