@@ -133,14 +133,14 @@ data "aws_ami" "ubuntu" {
 
 resource "aws_instance" "primary_instance" {
   ami = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
-   subnet_id = aws_subnet.primary_subnet
-   
+  instance_type = var.instance_type
+  subnet_id = aws_subnet.primary_subnet
+
   key_name = aws_key_pair.ec2_key_pair.id
   root_block_device {
-    volume_size = 5
-    volume_type = "gp3"
-    delete_on_termination = true
+    volume_size = var.root_block_volume_size
+    volume_type = var.root_block_volume_type
+    delete_on_termination = var.root_dlt_on_termination
     encrypted = true
   }
 
