@@ -211,3 +211,12 @@ resource "aws_security_group_rule" "allow_all" {
   protocol = "tcp"
   cidr_blocks = var.secondary_vpc_cidr_block
 }
+
+resource "aws_security_group_rule" "allow_all_outbound" {
+  type = "egress"
+  security_group_id = aws_security_group.primary_sg.id
+  from_port = 0
+  to_port = 0
+  protocol = "-1"
+  cidr_blocks = "0.0.0.0/0"
+}
