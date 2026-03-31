@@ -136,6 +136,8 @@ resource "aws_instance" "primary_instance" {
   instance_type = var.instance_type
   subnet_id = aws_subnet.primary_subnet
 
+  vpc_security_group_ids = [aws_security_group.primary_sg.id]
+
   key_name = aws_key_pair.ec2_key_pair.id
   root_block_device {
     volume_size = var.root_block_volume_size
@@ -167,4 +169,16 @@ tags = {
   Name = "secondary-instance"
   }
 }
+
+
+resource "aws_security_group" "primary_sg" {
+  name        = "primary_sg"
+  description = "Allow TLS inbound traffic and all outbound traffic for primary instance"
+  vpc_id = aws_vpc.primary_vpc.id
+
+  tags = {
+    Name = "primary_sg"
+  }
+}
+
 
