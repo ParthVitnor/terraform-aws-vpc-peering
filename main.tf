@@ -179,7 +179,7 @@ resource "aws_security_group" "primary_sg" {
   vpc_id = aws_vpc.primary_vpc.id
 
   tags = {
-    Name = "primary_sg"
+    Name = "primary-sg"
   }
 }
 
@@ -191,7 +191,7 @@ resource "aws_security_group_rule" "allow_ssh_primary" {
   from_port = 22
   protocol = "tcp"
   to_port = 22
-  cidr_blocks = "0.0.0.0/0"  
+  cidr_blocks = ["0.0.0.0/0"]  
 }
 
 
@@ -220,7 +220,7 @@ resource "aws_security_group_rule" "allow_all_outbound_primary" {
   from_port = 0
   to_port = 0
   protocol = "-1"
-  cidr_blocks = "0.0.0.0/0"
+  cidr_blocks = ["0.0.0.0/0"]
 }
 
 
@@ -230,7 +230,7 @@ resource "aws_security_group" "secondary_sg" {
   vpc_id = aws_vpc.secondary_vpc.id
 
   tags = {
-    Name = "secondary_sg"
+    Name = "secondary-sg"
   }
 }
 
@@ -240,7 +240,7 @@ resource "aws_security_group_rule" "allow_ssh_secondary" {
   from_port = 22
   protocol = "tcp"
   to_port = 22
-  cidr_blocks = "0.0.0.0/0"  
+  cidr_blocks = ["0.0.0.0/0"]  
 }
 
 resource "aws_security_group_rule" "allow_ICMP_secondary" {
@@ -267,5 +267,5 @@ resource "aws_security_group_rule" "allow_all_outbound_secondary" {
   from_port = 0
   to_port = 0
   protocol = "-1"
-  cidr_blocks = "0.0.0.0/0"
+  cidr_blocks = ["0.0.0.0/0"]
 }
