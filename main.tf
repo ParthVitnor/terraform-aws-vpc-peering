@@ -205,7 +205,7 @@ resource "aws_security_group_rule" "allow_ICMP_primary" {
 }
 
 
-resource "aws_security_group_rule" "allow_all" {
+resource "aws_security_group_rule" "allow_all_primary" {
   type = "ingress"
   security_group_id = aws_security_group.primary_sg.id
   from_port = 0
@@ -249,5 +249,14 @@ resource "aws_security_group_rule" "allow_ICMP_secondary" {
   from_port = -1
   protocol = "icmp"
   to_port = -1
+  cidr_blocks = var.primary_vpc_cidr_block
+}
+
+resource "aws_security_group_rule" "allow_all_secondary" {
+  type = "ingress"
+  security_group_id = aws_security_group.secondary_sg.id
+  from_port = 0
+  to_port = 65535
+  protocol = "tcp"
   cidr_blocks = var.primary_vpc_cidr_block
 }
