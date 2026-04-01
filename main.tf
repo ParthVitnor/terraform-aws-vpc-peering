@@ -157,6 +157,8 @@ resource "aws_instance" "secondary_instance" {
   instance_type = var.instance_type
   subnet_id = aws_subnet.secondary_subnet
 
+  vpc_security_group_ids = [aws_security_group.secondary_sg.id]
+
   key_name = aws_key_pair.ec2_key_pair.id
   root_block_device {
     volume_size = var.root_block_volume_size
@@ -219,4 +221,15 @@ resource "aws_security_group_rule" "allow_all_outbound" {
   to_port = 0
   protocol = "-1"
   cidr_blocks = "0.0.0.0/0"
+}
+
+
+resource "aws_security_group" "secondary_sg" {
+  name        = "secondary_sg"
+  description = "Allow TLS inbound traffic and all outbound traffic for secondary instance"
+  vpc_id = aws_vpc.secondary_vpc.id
+
+  tags = {
+    Name = "secondary_sg"
+  }
 }
