@@ -214,7 +214,7 @@ resource "aws_security_group_rule" "allow_all_primary" {
   cidr_blocks = var.secondary_vpc_cidr_block
 }
 
-resource "aws_security_group_rule" "allow_all_outbound" {
+resource "aws_security_group_rule" "allow_all_outbound_primary" {
   type = "egress"
   security_group_id = aws_security_group.primary_sg.id
   from_port = 0
@@ -259,4 +259,13 @@ resource "aws_security_group_rule" "allow_all_secondary" {
   to_port = 65535
   protocol = "tcp"
   cidr_blocks = var.primary_vpc_cidr_block
+}
+
+resource "aws_security_group_rule" "allow_all_outbound_secondary" {
+  type = "egress"
+  security_group_id = aws_security_group.secondary_sg.id
+  from_port = 0
+  to_port = 0
+  protocol = "-1"
+  cidr_blocks = "0.0.0.0/0"
 }
