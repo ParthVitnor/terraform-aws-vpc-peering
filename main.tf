@@ -201,7 +201,7 @@ resource "aws_security_group_rule" "allow_ICMP_primary" {
   from_port = -1
   protocol = "icmp"
   to_port = -1
-  cidr_blocks = var.secondary_vpc_cidr_block 
+  cidr_blocks = var.secondary_vpc_cidr_block
 }
 
 
@@ -241,4 +241,13 @@ resource "aws_security_group_rule" "allow_ssh_secondary" {
   protocol = "tcp"
   to_port = 22
   cidr_blocks = "0.0.0.0/0"  
+}
+
+resource "aws_security_group_rule" "allow_ICMP_secondary" {
+  type = "ingress"
+  security_group_id = aws_security_group.secondary_sg.id
+  from_port = -1
+  protocol = "icmp"
+  to_port = -1
+  cidr_blocks = var.primary_vpc_cidr_block
 }
