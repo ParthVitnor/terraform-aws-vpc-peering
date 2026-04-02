@@ -269,3 +269,15 @@ resource "aws_security_group_rule" "allow_all_outbound_secondary" {
   protocol = "-1"
   cidr_blocks = ["0.0.0.0/0"]
 }
+
+
+resource "aws_vpc_peering_connection" "primary_to_secondary" {
+  vpc_id      = aws_vpc.primary_vpc.id
+  peer_vpc_id = aws_vpc.secondary_vpc.id
+  auto_accept = false
+
+  tags = {
+    Name        = "Primary-to-Secondary-Peering"
+    Side        = "Requester"
+  }
+}
