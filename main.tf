@@ -97,6 +97,13 @@ resource "aws_route" "secondary_rote" {
   route_table_id = aws_route_table.secondary_vpc_rt.id
 }
 
+resource "aws_route" "route_to_primary_vpc" {
+destination_cidr_block = var.primary_vpc_cidr_block
+vpc_peering_connection_id = aws_vpc_peering_connection.primary_to_secondary.id
+route_table_id = aws_route_table.secondary_vpc_rt.id
+}
+
+
 resource "aws_route_table_association" "primary_vpc_internet_assoc" {
   subnet_id = aws_subnet.secondary_subnet.id
   route_table_id = aws_route_table.secondary_vpc_rt.id
