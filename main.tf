@@ -104,7 +104,7 @@ route_table_id = aws_route_table.secondary_vpc_rt.id
 }
 
 
-resource "aws_route_table_association" "primary_vpc_internet_assoc" {
+resource "aws_route_table_association" "secondary_vpc_internet_assoc" {
   subnet_id = aws_subnet.secondary_subnet.id
   route_table_id = aws_route_table.secondary_vpc_rt.id
 }
@@ -148,7 +148,7 @@ data "aws_ami" "ubuntu" {
 resource "aws_instance" "primary_instance" {
   ami = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
-  subnet_id = aws_subnet.primary_subnet
+  subnet_id = aws_subnet.primary_subnet.id
 
   vpc_security_group_ids = [aws_security_group.primary_sg.id]
 
@@ -169,7 +169,7 @@ tags = {
 resource "aws_instance" "secondary_instance" {
   ami = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
-  subnet_id = aws_subnet.secondary_subnet
+  subnet_id = aws_subnet.secondary_subnet.id
 
   vpc_security_group_ids = [aws_security_group.secondary_sg.id]
 
