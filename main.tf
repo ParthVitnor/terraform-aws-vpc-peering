@@ -42,6 +42,13 @@ resource "aws_route" "route_to_igw" {
 }
 
 
+resource "aws_route" "route_to_secondary_vpc" {
+  destination_cidr_block = var.secondary_vpc_cidr_block
+  vpc_peering_connection_id = aws_vpc_peering_connection.primary_to_secondary.id
+  route_table_id = aws_route_table.primary_vpc_rt.id
+}
+
+
 resource "aws_route_table_association" "primary_vpc_internet_assoc" {
   subnet_id = aws_subnet.primary_subnet.id
   route_table_id = aws_route_table.primary_vpc_rt.id
