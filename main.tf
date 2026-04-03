@@ -281,3 +281,13 @@ resource "aws_vpc_peering_connection" "primary_to_secondary" {
     Side        = "Requester"
   }
 }
+
+
+resource "aws_vpc_peering_connection_accepter" "seconday_accepter" {
+  vpc_peering_connection_id = aws_vpc_peering_connection.primary_to_secondary.id
+  auto_accept = True
+
+  tags = {
+    side = "Accepter"
+  }
+}
