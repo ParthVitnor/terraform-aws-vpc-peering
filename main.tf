@@ -91,7 +91,7 @@ resource "aws_route_table" "secondary_vpc_rt" {
   }
 }
 
-resource "aws_route" "secondary_rote" {
+resource "aws_route" "secondary_route" {
   destination_cidr_block = "0.0.0.0/0"
   gateway_id = aws_internet_gateway.secondary-vpc-igw.id
   route_table_id = aws_route_table.secondary_vpc_rt.id
