@@ -5,7 +5,7 @@ output "primary_instance_ip" {
 
 output "secondary_instance_ip" {
   description = "IP address of secondary instance"
-  value = aws_instance.secondary_instance
+  value = aws_instance.secondary_instance.public_ip
 }
 
 output "vpc_peering_status" {
