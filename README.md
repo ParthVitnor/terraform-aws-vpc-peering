@@ -64,7 +64,7 @@ You can customize these values by creating a `terraform.tfvars` file or passing 
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/ParthVitnor/terraform-aws-vpc-peering.git
 cd vpc-peering-using-terraform
 ```
 
