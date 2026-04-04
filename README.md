@@ -65,7 +65,7 @@ You can customize these values by creating a `terraform.tfvars` file or passing 
 
 ```bash
 git clone https://github.com/ParthVitnor/terraform-aws-vpc-peering.git
-cd vpc-peering-using-terraform
+cd  terraform-aws-vpc-peering
 ```
 
 ### 2. Initialize Terraform
