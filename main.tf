@@ -68,6 +68,7 @@ resource "aws_subnet" "secondary_subnet" {
   vpc_id = aws_vpc.secondary_vpc.id
   cidr_block = var.secondary_subnet_cidr_block
   availability_zone = var.subnet_availability_zone
+  map_public_ip_on_launch = true
 
   tags =  {
     Name = "secondary-subnet"
@@ -215,7 +216,7 @@ resource "aws_security_group_rule" "allow_ICMP_primary" {
   from_port = -1
   protocol = "icmp"
   to_port = -1
-  cidr_blocks = var.secondary_vpc_cidr_block
+  cidr_blocks = [var.secondary_vpc_cidr_block]
 }
 
 
@@ -225,7 +226,7 @@ resource "aws_security_group_rule" "allow_all_primary" {
   from_port = 0
   to_port = 65535
   protocol = "tcp"
-  cidr_blocks = var.secondary_vpc_cidr_block
+  cidr_blocks = [var.secondary_vpc_cidr_block]
 }
 
 resource "aws_security_group_rule" "allow_all_outbound_primary" {
@@ -263,7 +264,7 @@ resource "aws_security_group_rule" "allow_ICMP_secondary" {
   from_port = -1
   protocol = "icmp"
   to_port = -1
-  cidr_blocks = var.primary_vpc_cidr_block
+  cidr_blocks = [var.primary_vpc_cidr_block]
 }
 
 resource "aws_security_group_rule" "allow_all_secondary" {
@@ -272,7 +273,7 @@ resource "aws_security_group_rule" "allow_all_secondary" {
   from_port = 0
   to_port = 65535
   protocol = "tcp"
-  cidr_blocks = var.primary_vpc_cidr_block
+  cidr_blocks = [var.primary_vpc_cidr_block]
 }
 
 resource "aws_security_group_rule" "allow_all_outbound_secondary" {
