@@ -40,7 +40,7 @@ variable "instance_type" {
 }
 
 variable "root_block_volume_size" {
-  default = 5
+  default = 8
 }
 
 variable "root_block_volume_type" {
