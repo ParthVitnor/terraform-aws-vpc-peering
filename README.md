@@ -56,6 +56,8 @@ Primary VPC (10.0.0.0/16)          Secondary VPC (11.0.0.0/16)
 | `subnet_availability_zone` | `ap-south-1a` | Availability zone for subnets |
 | `instance_type` | `t3.micro` | EC2 instance type |
 | `key_pair_name` | `instance-key-pair` | Name for SSH key pair |
+| `root_block_volume_size` | `8` | Root volume size in GB |
+| `root_block_volume_type` | `gp3` | Root volume type |
 
 You can customize these values by creating a `terraform.tfvars` file or passing them via command line.
 
@@ -97,14 +99,26 @@ After successful deployment, Terraform will output:
 
 ### 6. Test Connectivity
 
+Both instances have public IPs for direct SSH access.
+
 SSH into the primary instance:
 ```bash
-ssh -i ec2-key.pem ubuntu@<primary_instance_ip>
+ssh -i ec2-key.pem ubuntu@<primary_instance_public_ip>
 ```
 
-From the primary instance, ping the secondary instance's private IP:
+SSH into the secondary instance:
+```bash
+ssh -i ec2-key.pem ubuntu@<secondary_instance_public_ip>
+```
+
+From the primary instance, ping the secondary instance's private IP to test VPC peering:
 ```bash
 ping <secondary_instance_private_ip>
+```
+
+From the secondary instance, you can also ping the primary instance's private IP:
+```bash
+ping <primary_instance_private_ip>
 ```
 
 ## Security Considerations
@@ -128,6 +142,8 @@ Type `yes` when prompted to confirm the destruction.
 
 - `primary_instance_ip`: Public IP address of the primary EC2 instance
 - `secondary_instance_ip`: Public IP address of the secondary EC2 instance
+- `primary_instance_private_ip`: Private IP address of the primary EC2 instance
+- `secondary_instance_private_ip`: Private IP address of the secondary EC2 instance
 - `vpc_peering_status`: Status of the VPC peering connection
 
 ## File Structure
